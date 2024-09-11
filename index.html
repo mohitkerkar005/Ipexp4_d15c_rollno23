@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Page</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            font-size: 2.5em;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .div1, .div2, .div3 {
+            flex: 1;
+            width: 50%;
+            text-align: center;
+            height: 80px;
+        }
+        .container1 {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: auto;
+        }
+        .div4, .div5, .div6 {
+            flex: 1;
+            width: 50%;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .div4 {
+            background-color: rgb(21, 71, 71);
+            color: white;
+            text-align: center;
+        }
+        .div5 {
+            background-color: blue;
+            color: white;
+            text-align: left;
+            padding: 20px;
+        }
+        .div6 {
+            background-color: lightgray;
+            text-align: left;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        input[type="text"], select, button {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+        label {
+            font-size: 1.2em;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="div1"></div>
+        <div class="div2">
+            <h1>Order a POLO Shirt</h1>
+        </div>
+        <div class="div3"></div>
+    </div>
+
+    <div class="container1">
+        <div class="div4">
+            <form id="order-form">
+                <label for="name">Enter your name:</label><br>
+                <input type="text" id="name" name="name"><br><br>
+                <label for="email">Enter your Email ID:</label><br>
+                <input type="text" id="email" name="email"><br><br>
+                <label for="contact">Enter Contact number:</label><br>
+                <input type="text" id="contact" name="contact"><br><br>
+            </form>
+        </div>
+
+        <div class="div5">
+            <form id="shirt-form">
+                <label for="shirt-type">Please select the type of shirt you want to order:</label><br>
+                <select id="shirt-type" name="shirt-type">
+                    <option value="baggy">Baggy</option>
+                    <option value="sweatshirt">Sweatshirt</option>
+                    <option value="formal">Formal</option>
+                    <option value="casual">Casual</option>
+                    <option value="t-shirt">T-Shirt</option>
+                </select><br><br>
+
+                <label>How much do you like POLO shirts?</label><br>
+                <input type="radio" id="moderate" name="like" value="moderate">
+                <label for="moderate">Moderate</label><br>
+                <input type="radio" id="very-much" name="like" value="very-much">
+                <label for="very-much">Very much</label><br>
+                <input type="radio" id="fan" name="like" value="fan">
+                <label for="fan">I'm a fan</label><br><br>
+            </form>
+        </div>
+
+        <div class="div6">
+            <form id="age-size-form">
+                <label>Enter age group:</label><br>
+                <input type="radio" id="under6" name="age-group">
+                <label for="under6">Under 6</label><br>
+                <input type="radio" id="age6-9" name="age-group">
+                <label for="age6-9">6-9</label><br>
+                <input type="radio" id="age10-13" name="age-group">
+                <label for="age10-13">10-13</label><br>
+                <input type="radio" id="age14-18" name="age-group">
+                <label for="age14-18">14-18</label><br>
+                <input type="radio" id="adult" name="age-group">
+                <label for="adult">Above 18</label><br><br>
+
+                <label>Which size shirt would you like to wear?</label><br>
+                <input type="radio" id="small" name="size">
+                <label for="small">Small</label><br>
+                <input type="radio" id="medium" name="size">
+                <label for="medium">Medium</label><br>
+                <input type="radio" id="large" name="size">
+                <label for="large">Large</label><br>
+                <input type="radio" id="xl" name="size">
+                <label for="xl">XL</label><br>
+                <input type="radio" id="xxl" name="size">
+                <label for="xxl">XXL</label>
+            </form>
+        </div>
+    </div>
+
+    <button onclick="processOrder()" style="width: 110px;background-color: aquamarine;">SUBMIT</button>
+    <div id="receipt"></div>
+
+    <script>
+        class Person {
+            constructor(name, email, contact) {
+                this.name = name;
+                this.email = email;
+                this.contact = contact;
+            }
+
+            getDetails() {
+                return `Name: ${this.name}, Email: ${this.email}, Contact: ${this.contact}`;
+            }
+
+            static greet() {
+                return 'Hello from the Person class!';
+            }
+        }
+
+        class Student extends Person {
+            constructor(name, email, contact, rollNo) {
+                super(name, email, contact);
+                this.rollNo = rollNo;
+            }
+
+            getDetails() {
+                return `${super.getDetails()}, Roll No: ${this.rollNo}`;
+            }
+
+            validateRollNo() {
+                if (this.rollNo <= 0) {
+                    throw new Error('Roll number must be greater than zero');
+                }
+            }
+        }
+
+        const processOrder = () => {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const contact = document.getElementById('contact').value;
+            const shirtType = document.getElementById('shirt-type').value;
+            const like = document.querySelector('input[name="like"]:checked');
+            const ageGroup = document.querySelector('input[name="age-group"]:checked');
+            const size = document.querySelector('input[name="size"]:checked');
+
+            if (!name || !email || !contact || !shirtType || !like || !ageGroup || !size) {
+                alert('Please fill in all the fields.');
+                return;
+            }
+
+            if (contact.length !== 9) {
+                alert('Contact number must be exactly 9 digits.');
+                return;
+            }
+
+            const student = new Student(name, email, contact, 1); // Example roll number
+
+            try {
+                student.validateRollNo();
+                const receiptDate = new Date();
+                const receiptContent = `
+                    <h2>Order Receipt</h2>
+                    <p>Order Date: ${receiptDate.toLocaleDateString()}</p>
+                    <p>Order Time: ${receiptDate.toLocaleTimeString()}</p>
+                    <p>${student.getDetails()}</p>
+                    <p>Shirt Type: ${shirtType}</p>
+                    <p>How Much Do You Like POLO Shirts: ${like.nextElementSibling.textContent}</p>
+                    <p>Age Group: ${ageGroup.nextElementSibling.textContent}</p>
+                    <p>Size: ${size.nextElementSibling.textContent}</p>
+                `;
+                document.getElementById('receipt').innerHTML = receiptContent;
+            } catch (error) {
+                alert(error.message);
+            }
+        };
+    </script>
+</body>
+</html>
